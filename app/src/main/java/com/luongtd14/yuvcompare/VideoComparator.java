@@ -30,6 +30,7 @@ public class VideoComparator {
 
                 int w1 = ext1.getWidth(), h1 = ext1.getHeight();
                 int w2 = ext2.getWidth(), h2 = ext2.getHeight();
+                int colorFormat1 = ext1.getColorFormat(), colorFormat2 = ext2.getColorFormat();
 
                 // Căn chỉnh kích thước về chung (target)
                 boolean needResize = (w1 != w2 || h1 != h2);
@@ -39,7 +40,8 @@ public class VideoComparator {
                 int targetUvH = targetH / 2;
 
                 byte[][] frame1, frame2;
-                while ((frame1 = ext1.getNextYUVFrame()) != null && (frame2 = ext2.getNextYUVFrame()) != null) {
+                while ((frame1 = ext1.getNextYUVFrame(colorFormat1)) != null &&
+                        (frame2 = ext2.getNextYUVFrame(colorFormat2)) != null) {
                     byte[] y1 = frame1[0], u1 = frame1[1], v1 = frame1[2];
                     byte[] y2 = frame2[0], u2 = frame2[1], v2 = frame2[2];
 
